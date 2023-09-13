@@ -4,6 +4,7 @@ import math
 
 
 
+
 os.system('cls')
 
 def clear():
@@ -23,7 +24,12 @@ def coinInput():
      return sum
 
 
-
+def resourceOutput():
+    water = resources["water"]
+    milk = resources["milk"]
+    coffee = resources["coffee"]
+    money = 0
+    return f"water: {water} \nmilk: {milk} \ncoffee: {coffee} \nmoney: ${money}"
 
 #todo process coins, create math function
 
