@@ -1,36 +1,24 @@
-import os
-from products import *
-import math
 
 
+""""Machine should be able to turn off after the words 'off' for maintenance"""
+def store_check():
+    if customerOrder == "resource":
+        print(resourceOutput(p))
+    elif customerOrder == "off":
+        print("Machine is turning off")
+        return False
 
 
-os.system('cls')
-
-def clear():
-     os.system('cls' if os.name == 'nt' else 'clear')
-
-#todo 1 resource format
+"""Dispense custome change after the order has been completed """
 
 
-def coinInput():
-     print("Please Insert Coins. ")
-     insertQ = int(input("How many Quarters?:"))
-     insertD = int(input("How many Dimes?:"))
-     insertN = int(input("How many Nickles?:"))
-     insertP = int(input("How many Pennies?:"))
-     sum = (insertQ + insertD + insertN + insertP)
-     print(sum)
-     return sum
+#todo 0: insufficient change, prompts refund
 
+#todo 1: have report print updated information
 
-def resourceOutput():
-    water = resources["water"]
-    milk = resources["milk"]
-    coffee = resources["coffee"]
-    money = 0
-    return f"water: {water} \nmilk: {milk} \ncoffee: {coffee} \nmoney: ${money}"
+#todo 2: when order is complete, subtract resources from stock
 
-#todo process coins, create math function
+#todo 3:Add a 'restock' option to refill
 
+#todo 4: checking resources before completing a transaction
 
