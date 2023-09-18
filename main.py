@@ -10,13 +10,13 @@ def clear():
 def coinInput():
     print("Please Insert Coins.")
     insert_q = int(input("How many Quarters?: "))
-    q_sum = (insert_q * .25)
+    q_sum = float(insert_q * .25)
     insert_d = int(input("How many Dimes?: "))
-    d_sum = (insert_d * .10)
+    d_sum = float(insert_d * .10)
     insert_n = int(input("How many Nickles?: "))
-    n_sum = (insert_n * .05)
+    n_sum = float(insert_n * .05)
     insert_p = int(input("How many Pennies?: "))
-    p_sum = (insert_p * .01)
+    p_sum = float(insert_p * .01)
     # print(f"quarters total: {q_sum}, dime total: {d_sum}, nickle total: {n_sum}, pennies total: {p_sum}")
     sum = round(q_sum + d_sum + n_sum + p_sum, 2)
     input_sum = sum
@@ -32,13 +32,13 @@ def customer_change(input_sum, cost):
 
 
 def resource_check(p):
-    global money
     water = p.resources["water"]
     milk = p.resources["milk"]
     coffee = p.resources["coffee"]
     return f"water: {water} \nmilk: {milk} \ncoffee: {coffee}"
 
-def
+# def resource_usage():
+
 
 
 def coffee_machine():
