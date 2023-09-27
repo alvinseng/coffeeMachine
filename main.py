@@ -31,37 +31,48 @@ def customer_change(input_sum, cost):
         return change
 
 
-def resource_check(p):
-    water = p.resources["water"]
-    milk = p.resources["milk"]
-    coffee = p.resources["coffee"]
-    return f"water: {water} \nmilk: {milk} \ncoffee: {coffee}"
+def resource_check():
+    return f"water: {p.resources['water']} \nmilk: {p.resources['milk']} \ncoffee: {p.resources['coffee']}"
 
-# def resource_usage():
+def resource_usage(resource, required_ingredients):
+    for ingredient, amount in required_ingredients.items():
+        if resource.get(ingredient, 0) < amount:
+            print("Not enough ingredients")
+            return False
+    return True
 
+def make_drink(choice, resource, required_ingredients):
+    for ingredient, amount in required_ingredients.items():
+        resource[ingredient] -= amount
 
 
 def coffee_machine():
     money = 0
     machine = True
+    menu = p.MENU
+    resource = p.resources
+
     while machine:
         customerOrder = input("Welcome! What would you like to order? (espresso/latte/cappuccino): ").lower()
-        if customerOrder in ["espresso", "latte", "cappuccino"]:
-            cost = p.MENU[customerOrder]["cost"]
-            print(f"Cost of {customerOrder}: ${cost}\n")
-            money += cost
-            customer_change(coinInput(), cost)  # calculates the money input to calculate change
-            print(f"Here is your {customerOrder} ☕, Enjoy!")
-        elif customerOrder == "resource":
-            print(resource_check(p))
-            print(f"money:${money}")
-        elif customerOrder == "off":
-            print("Machine is turning off")
-            return False
-        else:
-            print("Invalid order.")
-            customerOrder
 
+        if customerOrder == "off":
+            clear()
+            print("Machine is turning off")
+            break
+        elif customerOrder == "resource":
+            print(resource_check())
+            print(f"money:${money}")
+        if customerOrder in menu:
+            if resource_usage(resource, menu[customerOrder]["ingredients"]):
+                cost = menu[customerOrder]["cost"]
+                print(f"Cost of {customerOrder}: ${cost}\n")
+                money += cost
+                if customer_change(coinInput(), cost): # calculates the money input to calculate change
+                    print(f"Here is your {customerOrder} ☕, Enjoy!")
+            else:
+                print("Not enough ingredients")
+        else:
+            print("Invalid order. Try Again")
 
 
 coffee_machine()
