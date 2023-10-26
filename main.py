@@ -31,28 +31,26 @@ def customer_change(input_sum, cost):
         return change
 
 
-def resource_check():
+def resource_check(resources):
     return f"water: {p.resources['water']} \nmilk: {p.resources['milk']} \ncoffee: {p.resources['coffee']}"
 
-def resource_usage(resource, required_ingredients):
+def resource_usage(resources, required_ingredients):
     for ingredient, amount in required_ingredients.items():
-        if resource.get(ingredient, 0) < amount:
-            print("Not enough ingredients")
+        if resources.get(ingredient, 0) < amount:
+            print(f"Not enough {ingredient}")
             return False
     return True
 
-def make_drink(choice, resource, required_ingredients):
+def make_drink(choice, resources, required_ingredients):
     for ingredient, amount in required_ingredients.items():
-        resource[ingredient] -= amount
+        resources[ingredient] -= amount
 
 
 def coffee_machine():
-    money = 0
-    machine = True
     menu = p.MENU
     resource = p.resources
 
-    while machine:
+    while True:
         customerOrder = input("Welcome! What would you like to order? (espresso/latte/cappuccino): ").lower()
 
         if customerOrder == "off":
@@ -60,14 +58,13 @@ def coffee_machine():
             print("Machine is turning off")
             break
         elif customerOrder == "resource":
-            print(resource_check())
-            print(f"money:${money}")
+            print(resource_check(resource))
         if customerOrder in menu:
             if resource_usage(resource, menu[customerOrder]["ingredients"]):
                 cost = menu[customerOrder]["cost"]
                 print(f"Cost of {customerOrder}: ${cost}\n")
-                money += cost
                 if customer_change(coinInput(), cost): # calculates the money input to calculate change
+                    make_drink(customerOrder, resource, menu[customerOrder]["ingredients"])
                     print(f"Here is your {customerOrder} ☕, Enjoy!")
             else:
                 print("Not enough ingredients")
