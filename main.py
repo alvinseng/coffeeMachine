@@ -1,34 +1,32 @@
 import products as p
 import os
 
-
+profit = 0
 os.system('cls')
 def clear():
      os.system('cls' if os.name == 'nt' else 'clear')
 
-
 def coinInput():
     print("Please Insert Coins.")
-    insert_q = int(input("How many Quarters?: "))
-    q_sum = float(insert_q * .25)
-    insert_d = int(input("How many Dimes?: "))
-    d_sum = float(insert_d * .10)
-    insert_n = int(input("How many Nickles?: "))
-    n_sum = float(insert_n * .05)
-    insert_p = int(input("How many Pennies?: "))
-    p_sum = float(insert_p * .01)
+    q_sum = int(input("How many Quarters?: ")) * 0.25
+    d_sum = int(input("How many Dimes?: ")) * 0.10
+    n_sum = int(input("How many Nickles?: ")) * 0.05
+    p_sum = int(input("How many Pennies?: ")) * 0.01
     # print(f"quarters total: {q_sum}, dime total: {d_sum}, nickle total: {n_sum}, pennies total: {p_sum}")
-    sum = round(q_sum + d_sum + n_sum + p_sum, 2)
-    input_sum = sum
-    print(f"Total amount inserted: ${input_sum}")
-    return input_sum
+    total= round(q_sum + d_sum + n_sum + p_sum, 2)
+    print(f"Total amount inserted: ${total}")
+    return total
 
 
-def customer_change(input_sum, cost):
-    if input_sum >= cost:
-        change = input_sum - cost
+def customer_change(total, cost):
+    if total >= cost:
+        global profit
+        profit += cost
+        change = total - cost
         print(f"Your change is: ${change}")
         return change
+    else:
+        print("Incorrect amount. Money Refunded.")
 
 
 def resource_check(resources):
@@ -57,8 +55,9 @@ def coffee_machine():
             clear()
             print("Machine is turning off")
             break
-        elif customerOrder == "resource":
+        elif customerOrder == "report":
             print(resource_check(resource))
+            print(f"profit: ${profit}")
         if customerOrder in menu:
             if resource_usage(resource, menu[customerOrder]["ingredients"]):
                 cost = menu[customerOrder]["cost"]
